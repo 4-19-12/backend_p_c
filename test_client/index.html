@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confectionery Shop - Test Frontend</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_form.css">
+</head>
+<body>
+    <h1>Pink Cheesecake - Test Frontend</h1>
+
+    <h2>Categories</h2>
+    <div id="categories">
+        <button id="getCategoriesButton">Get Categories</button>  
+        <ul id="categoryList"></ul>
+    </div>
+
+    <h2>Products</h2>
+    <div id="products">
+        <button id="getProductsButton">Get Products</button>  
+        <ul id="productList"></ul>
+    </div>
+
+    <h2>Product Details</h2>
+    <div id="productDetails">
+        <label for="productId">Product ID:</label>
+        <input type="number" id="productId" value="1">
+        <button id="getProductDetailsButton">Get Product Details</button>  
+        <div id="productDetail"></div>
+    </div>
+
+    <h2>Product by category</h2>
+    <label for="categoryId">Category ID:</label>
+    <input type="text" id="categoryId" name="categoryId">
+     <button id="getProductByCategory">Get Products</button>
+    <div id="productsByCategory"></div>
+
+
+    <div class="form-container">
+        <h2>Регистрация</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                <label for="agreeTerms">Я согласен с <a href="#">Пользовательским соглашением</a> и обработкой персональных данных</label>
+                <div class="error" id="termsError"></div>
+            </div>
+
+             <div class="form-group">
+                <input type="checkbox" id="agreeOffers" name="agreeOffers">
+                <label for="agreeOffers">Я согласен получать рекламные рассылки</label>
+                <div class="error" id="offersError"></div>
+            </div>
+
+             <div class="form-group">
+                <label for="feedbackText">Текст для обратной связи:</label>
+                <textarea id="feedbackText" name="feedbackText" rows="4" cols="50"></textarea>
+
+                <div class="error" id="feedbackTextError"></div>
+            </div>
+
+            <button class="button-form" type="submit">Зарегистрироваться</button>
+            <div class="success" id="successMessage"></div>
+        </form>
+    </div>
+
+    <script type="module" src="./services/getData.js"></script>
+    <script type="module" src="./services/sendForm.js"></script>
+</body>
+</html>

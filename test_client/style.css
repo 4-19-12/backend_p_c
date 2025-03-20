@@ -1,0 +1,132 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+h1, h2 {
+    margin-bottom: 10px;
+}
+#categories, #products, #productDetails {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 5px;
+}
+button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+.category-item {
+    display: flex; 
+    align-items: center; 
+    border: 1px solid #ccc; 
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .category-name {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .category-id {
+    margin-right: 10px;
+  }
+  
+  .category-description {
+    margin-right: 10px;
+    flex-grow: 1; 
+  }
+  
+  .category-image {
+    width: 50px; 
+    height: 50px; 
+    margin-right: 10px;
+  }
+  
+  .category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+
+
+  .product-item {
+    display: flex; /* Используем Flexbox для гибкой компоновки */
+    flex-direction: column; /* Размещаем элементы вертикально */
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .product-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .product-id {
+    font-size: 0.8em;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  
+  .product-description {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.4; 
+  }
+  
+  .product-prices {
+    font-size: 0.9em;
+    color: #27ae60; 
+    margin-bottom: 10px;
+  }
+  
+  .product-images {
+    display: flex; 
+    overflow-x: auto; 
+    margin-bottom: 10px; 
+  }
+  
+  .product-image {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    margin-right: 5px; 
+    border: 1px solid #eee; 
+  }
+  
+  .product-images:empty::after {
+    content: "Нет изображений"; 
+    display: block;
+    font-style: italic;
+    color: #999;
+  }
+  
+ 
+  @media (max-width: 600px) {
+    .product-images {
+      flex-wrap: wrap; 
+    }
+  
+    .product-image {
+      width: 80px; 
+      height: 80px;
+      margin-bottom: 5px; 
+    }
+  }
