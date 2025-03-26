@@ -15,20 +15,33 @@ class ProductService {
                     },
                     {
                         model: Product_image,
-                        attributes: ['image_name'],
+                        attributes: ['image_name', 'id'],
                         where: { is_main: true }, 
                         required: false, 
                         limit: 1,      
                     }
                 ],
             });
-            return products;
+            const processedProducts = products.map(product => {
+                const productData = product.get({ plain: true }); 
+                if (productData.Product_images && productData.Product_images.length > 0) {
+                    productData.Product_images = productData.Product_images.map(image => {
+                        return {
+                            ...image,
+                            image_url: `/static/product/${image.image_name}` 
+                        };
+                    });
+                }
+                return productData;
+            });
+            return processedProducts;
         } catch (error) {
             throw ApiError.internal(`Failed to get products: ${error.message}`);
         }
     }
 
     async getProductById(sequelize, id) {
+        console.log(id)
         try {
             
             const product = await Product.findByPk(id, {
@@ -39,7 +52,7 @@ class ProductService {
                     },
                     {
                         model: Product_image,
-                        attributes: ['image_name', 'is_main', 'description'],
+                        attributes: ['image_name','id', 'is_main', 'description'],
                     },
                     {
                         model: Product_detail,
@@ -51,6 +64,7 @@ class ProductService {
             if (!product) {
                 throw ApiError.notFound(`Product with ID ${id} not found`);
             }
+           
             return product;
         } catch (error) {
             if (error instanceof Sequelize.ValidationError) {
@@ -77,7 +91,7 @@ class ProductService {
                     },
                     {
                         model: Product_image,
-                        attributes: ['image_name', 'is_main', 'description'],
+                        attributes: ['image_name','id',  'is_main', 'description'],
                     },
                     {
                         model: Product_detail,
@@ -90,7 +104,19 @@ class ProductService {
                 return []; 
             }
 
-            return products;
+            const processedProducts = products.map(product => {
+                const productData = product.get({ plain: true }); 
+                if (productData.Product_images && productData.Product_images.length > 0) {
+                    productData.Product_images = productData.Product_images.map(image => {
+                        return {
+                            ...image,
+                            image_url: `/static/product/${image.image_name}` 
+                        };
+                    });
+                }
+                return productData;
+            });
+            return processedProducts;
         } catch (error) {
             throw ApiError.internal(`Failed to get products by category: ${error.message}`);
         }

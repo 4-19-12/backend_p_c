@@ -1,6 +1,7 @@
 const API_BASE_URL = 'http://localhost:8000/api'; 
 const apiKey = 'front_plus_back_warn_not';
 
+const api = 'http://localhost:8000/static/product/';
 
 
 async function getCategories() {
@@ -131,6 +132,7 @@ function displayCategories(categories) {
 
 // для отображения все товаров
 function displayProducts(products) {
+    console.log(products)
     const productList = document.getElementById('productList');
     productList.innerHTML = '';
 
@@ -165,11 +167,16 @@ function displayProducts(products) {
 
         if (product.product_images && product.product_images.length > 0) {
             product.product_images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = './static/test_static1.jpg'; //image.image_name; 
-                imgElement.alt = 'test';
-                imgElement.classList.add('product-image');
-                imagesDiv.appendChild(imgElement);
+                if (image.image_name) { // Проверяем наличие image_url
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `${api}${image.image_name}`; // Используем динамический URL
+                    imgElement.alt = product.name; // Или image.image_name
+                    imgElement.classList.add('product-image');
+                    imagesDiv.appendChild(imgElement);
+                } else {
+                    console.warn("Image URL is missing for product ID:", product.id);
+                    imagesDiv.textContent = 'Нет изображений'; // Или что-то более информативное
+                }
             });
         } else {
             imagesDiv.textContent = 'Нет изображений';
@@ -221,11 +228,16 @@ function displayProductsByCategory(products) {
 
         if (product.product_images && product.product_images.length > 0) {
             product.product_images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = './static/test_static1.jpg'; //image.image_name; 
-                imgElement.alt = 'test';
-                imgElement.classList.add('product-image');
-                imagesDiv.appendChild(imgElement);
+                if (image.image_name) { // Проверяем наличие image_url
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `${api}${image.image_name}`; // Используем динамический URL
+                    imgElement.alt = product.name; // Или image.image_name
+                    imgElement.classList.add('product-image');
+                    imagesDiv.appendChild(imgElement);
+                } else {
+                    console.warn("Image URL is missing for product ID:", product.id);
+                    imagesDiv.textContent = 'Нет изображений'; // Или что-то более информативное
+                }
             });
         } else {
             imagesDiv.textContent = 'Нет изображений';
@@ -243,8 +255,8 @@ function displayProductsByCategory(products) {
       productsByCategoryDiv.textContent = 'No products found in this category.';
     }
   }
-function displayProductDetails(product) {
-     const productDetailDiv = document.getElementById('productDetail');
+  function displayProductDetails(product) {
+    const productDetailDiv = document.getElementById('productDetail');
     productDetailDiv.innerHTML = '';
 
     if (product) {
@@ -260,7 +272,12 @@ function displayProductDetails(product) {
         });
         detailsHTML += `</ul><h4>Images:</h4><ul>`;
         product.product_images.forEach(image => {
-            detailsHTML += `<li><img src="./static/test_static1.jpg" alt="${image.description}" style="max-width: 100px;"></li>`;
+            if (image.image_name) { 
+                detailsHTML += `<li><img src="${api}${image.image_name}" alt="${image.description}" style="max-width: 100px;"></li>`; // Используем динамический URL
+            } else {
+                console.warn("Image URL is missing for product detail image with description:", image.description);
+                detailsHTML += `<li>No image available</li>`; // или что-то более информативное
+            }
         });
         detailsHTML += `</ul>`;
 
